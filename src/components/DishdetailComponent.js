@@ -6,8 +6,6 @@ import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
    
 
    function RenderDish({props}){
-        
-        
           return(
             <div  key={props.dish.id} className="col-12 col-md-5 m-1" >
             <Card >
@@ -23,10 +21,7 @@ import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
             </div>
                 
   
-          );
-  
-       
-        
+          ); 
       }
          /* <CardText>{dish.comments.map(dish => <div><h1>rating :{dish.rating}</h1><br/>{dish.comment}</div>)}</CardText>             
               </CardBody> */
