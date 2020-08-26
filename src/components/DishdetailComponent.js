@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
+import { Card, CardImg,  CardText, CardBody,CardTitle,Breadcrumb,BreadcrumbItem } from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 
 
@@ -7,16 +8,13 @@ import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
 
    function RenderDish({props}){
           return(
-            <div  key={props.dish.id} className="col-12 col-md-5 m-1" >
+            <div   className="col-12 col-md-5 m-1" >
             <Card >
-              <CardImg width="100%" src={props.dish.image} alt={props.dish.name }   />
-              
-              <CardBody>
-                 
+              <CardImg width="100%" src={props.dish.image} alt={props.dish.name }   />             
+              <CardBody>               
                 <CardTitle><h4>{props.dish.name}</h4></CardTitle>
                 <CardText>{props.dish.description}</CardText>
-              </CardBody>
-             
+              </CardBody>             
             </Card>
             </div>
                 
@@ -27,11 +25,8 @@ import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
               </CardBody> */
 
 
-     
-
-
-   function  RenderComments({props}){
-        const comment=props.dish.comments.map((comment)=>{
+  function  RenderComments({props}){
+        const comment=props.comments.map((comment)=>{
 
             return(
                 <li key={comment.id}>
@@ -75,20 +70,24 @@ import { Card, CardImg,  CardText, CardBody,CardTitle } from 'reactstrap';
     
         return (
         <div className="container">
-
-            <div className="row">
-             <RenderDish props={props}/>
-             <RenderComments props={props} />
-                       
-            </div>
+          <div className="row">
+              <Breadcrumb>
+                  <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                  <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+              </Breadcrumb>
+              <div className="col-12">
+                  <h3>{props.dish.name}</h3>
+                  <hr />
+              </div>                
+          </div>
+              <div className="row">
+                <RenderDish props={props}/>
+                <RenderComments props={props} />                       
+              </div>
         </div>
         );
     }
 
-  }
-       
-    
-        
-
-
+  }      
+          
 export default DishDetail;
