@@ -4,9 +4,8 @@ import {Link} from 'react-router-dom';
 
 
 
-   
 
-   function RenderDish({props}){
+function RenderDish({props}){
           return(
             <div   className="col-12 col-md-5 m-1" >
             <Card >
@@ -21,7 +20,7 @@ import {Link} from 'react-router-dom';
   
           ); 
       }
-         /* <CardText>{dish.comments.map(dish => <div><h1>rating :{dish.rating}</h1><br/>{dish.comment}</div>)}</CardText>             
+/* <CardText>{dish.comments.map(dish => <div><h1>rating :{dish.rating}</h1><br/>{dish.comment}</div>)}</CardText>             
               </CardBody> */
 
 
