@@ -20,16 +20,16 @@ constructor(props){
 
 }
 
+
 toggleModal(){
-    this.setState({
-      isModalOpen : !this.state.isModalOpen
-    });
+  this.setState({
+    isModalOpen : !this.state.isModalOpen
+  });
 }
 
-handleSubmit(values){
-  console.log("current state is "+JSON.stringify(values));
-  alert("current state is "+JSON.stringify(values));
+handleSubmit(values){ 
   this.toggleModal();
+  this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
 }
 
 
@@ -59,7 +59,7 @@ handleSubmit(values){
                     </Row>
 
                       <Row className="form-group">
-                      <Label htmlfor="author" md={8}>Your Name</Label>
+                      <Label htmlFor="author" md={8}>Your Name</Label>
                             <Col md={12}>
                               <Control.text 
                               className="form-control"
@@ -139,10 +139,10 @@ function RenderDish({props}){
 
             return(          
               <li key={comment.id}>
-                <p><h4>{comment.comment}</h4></p>
-                <p><h4>--{comment.author} ,  {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}  </h4></p>             
-              </li>                                   
-                                    
+                <span><h4>{comment.comment}</h4></span>
+                <span><h4>--{comment.author} ,  
+                {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}  </h4></span><br/>             
+              </li>                                                                       
         );
         
     });
@@ -150,11 +150,11 @@ function RenderDish({props}){
         return(
             
             <div className="col-12 col-md-6 m-1" >
-                <h4>Comment</h4>
+                <span ><h4>Comment</h4></span>
                 <ul className='list-unstyled'>
                     {comment}
                 </ul>
-              <CommentForm />
+              <CommentForm dishId ={props.dish.id} addComment={props.addComment}/>
             </div>
 
             
