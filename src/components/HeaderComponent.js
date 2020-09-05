@@ -3,7 +3,7 @@ import { Navbar, NavbarBrand, Jumbotron,Nav,NavbarToggler,Collapse,NavItem,Modal
 import {NavLink} from 'react-router-dom';
 
 
-class Header extends Component{
+class Header extends  Component{
     constructor(props){
         super(props);
         this.state={
