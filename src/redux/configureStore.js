@@ -6,6 +6,8 @@ import { Promotions } from './promotions';
 import { Leaders } from './leaders';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
+import {createForms} from 'react-redux-form';
+import {InitialFeedback} from './forms';
 
 export const ConfigureStore=() =>{
 
@@ -14,11 +16,17 @@ export const ConfigureStore=() =>{
             dishes: Dishes,
             comments:Comments,
             promotions:Promotions,
-            leaders:Leaders
+            leaders:Leaders,
+            ...createForms({
+                feedback: InitialFeedback
+            })
         }),
         applyMiddleware(thunk, logger)
 
     );
+
+    //here feedback is the copy of form when we pass this to Maincomponenet  resetFeedbackForm:() =>{dispatch(actions.reset('feedback'))}
+    //this upper codes actions.reset("feedback"), here feedback is the modl name which should be same as configureStores creatForms name which is 'feedback'
     
     return store;
 }
