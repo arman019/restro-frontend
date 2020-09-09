@@ -2,16 +2,49 @@ import * as ActionTypes from './ActionTypes';
 import {DISHES} from '../shared/dishes';
 import {baseUrl} from '../shared/baseUrl';
 
-//this add comment is a single add cooment using submit comment buttn but addComments are when we are fetching the whole list of comment from server
-export const addComment = (dishId , rating , author , comment  )=>({
+//this add comment is a single add comment using submit comment buttn but addComments are when we are fetching the whole list of comment from server
+export const addComment = ( comment)=>({
     type: ActionTypes.ADD_COMMENT,
-    payload :{
+    payload :comment
+});
+
+export const postComment= (dishId , rating , author , comment  )=>(dispatch)=>{
+
+    const newComment = {
         dishId : dishId,
         rating : rating,
         author:author,
         comment: comment
     }
-});
+    newComment.date=new Date().toISOString();
+
+    return fetch(baseUrl+'comments', {
+        method:'POST',
+        body : JSON.stringify(newComment),
+        headers:{
+        'Content-Type' : 'application/json'
+        },
+        credentials:"same-origin"            
+    })
+    .then(response =>{
+        if(response.ok){
+            return response
+        }
+        else{
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response=response;
+            throw error;
+        }
+    }, error =>{
+        var errmess=new Error(error.message);
+        throw errmess; //when we cant even establish a connection to server
+    })
+    .then(response => response.json())
+    .then(response =>dispatch(addComment(response)) )
+    .catch(error =>  { 
+        console.log('post comments', error.message); 
+        alert('Your comment could not be posted\nError: '+error.message); });
+}
 
 
 //Dishesh////

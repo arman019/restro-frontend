@@ -31,7 +31,7 @@ toggleModal(){
 
 handleSubmit(values){ 
   this.toggleModal();
-  this.props.addComment(this.props.dishId,values.rating,values.author,values.comment);
+  this.props.postComment(this.props.dishId,values.rating,values.author,values.comment);
 }
 
 
@@ -156,7 +156,7 @@ function RenderDish({props}){
                 <ul className='list-unstyled'>
                     {comment}
                 </ul>
-              <CommentForm dishId ={props.dish.id} addComment={props.addComment}/>
+              <CommentForm dishId ={props.dish.id} postComment={props.postComment}/>
             </div>
 
             
