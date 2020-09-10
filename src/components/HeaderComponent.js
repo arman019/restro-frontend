@@ -34,22 +34,20 @@ class Header extends  Component{
     }
 
     render(){
-       return(
+    return(
     
     <>
 
     <Navbar dark expand="md" >
-          <div className="container">
+        <div className="container">
             <NavbarToggler onClick={this.toggleNav} />
             <NavbarBrand className="mr-auto" href="/">
                 <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante con Fusion"/>
-            </NavbarBrand>
-           
+            </NavbarBrand>          
             <Collapse  isOpen={this.state.isNavOpen} navbar>
-            <Stagger in>
-            <Fade in>
-               <Nav navbar>
-                   
+            
+            <Fade in>               
+                <Nav navbar>                 
                             <NavItem>
                                 <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                             </NavItem>
@@ -61,20 +59,18 @@ class Header extends  Component{
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
-                            </NavItem>
-                             
+                            </NavItem>                            
                             
-                </Nav> 
+                    </Nav> 
                 </Fade>
-                </Stagger>  
+                
                 <Nav className="ml-auto" navbar>
                     <NavItem>
                         <Button outline onClick={this.toggleModal}>
                             <span className="fa fa-sign-in fa-lg">Login</span>
                         </Button>
                     </NavItem>
-                </Nav>
-               
+                </Nav>             
             </Collapse>
         
         </div>
