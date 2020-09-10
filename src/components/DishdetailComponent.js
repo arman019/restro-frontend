@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {Control,LocalForm ,Errors} from 'react-redux-form';
 import{Loading } from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -122,45 +123,56 @@ handleSubmit(values){
 function RenderDish({props}){
           return(
             <div   className="col-12 col-md-5 m-1" >
-            <Card >
-              <CardImg width="100%" src={baseUrl+props.dish.image} alt={props.dish.name }   />             
-              <CardBody>               
-                <CardTitle><h4>{props.dish.name}</h4></CardTitle>
-                <CardText>{props.dish.description}</CardText>
-              </CardBody>             
-            </Card>
-            </div>             
+              <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                    <Card >
+                      <CardImg width="100%" src={baseUrl+props.dish.image} alt={props.dish.name }   />             
+                      <CardBody>               
+                        <CardTitle><h4>{props.dish.name}</h4></CardTitle>
+                        <CardText>{props.dish.description}</CardText>
+                      </CardBody>             
+                    </Card>
+            </FadeTransform>
+          </div>             
           ); 
       }
 /* <CardText>{dish.comments.map(dish => <div><h1>rating :{dish.rating}</h1><br/>{dish.comment}</div>)}</CardText>             
               </CardBody> */
 
 
-  function  RenderComments({props}){
+  function  RenderComments({props}){ 
         const comment=props.comments.map((comment)=>{
 
-            return(          
+            return(     
+            
+            <Fade in>     
               <li key={comment.id}>
                 <span><h4>{comment.comment}</h4></span>
                 <span><h4>--{comment.author} ,  
                 {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}  </h4></span><br/>             
-              </li>                                                                       
+              </li>
+            </Fade>
+                                                                                  
         );
+      
         
     });
 
-        return(
-            
+        return(        
             <div className="col-12 col-md-6 m-1" >
-                <span ><h4>Comment</h4></span>
+                <span ><h4>Comment</h4></span>               
                 <ul className='list-unstyled'>
-                    {comment}
+                  <Stagger  in>
+                      {comment}
+                  </Stagger>
                 </ul>
-              <CommentForm dishId ={props.dish.id} postComment={props.postComment}/>
-            </div>
-
             
-
+              <CommentForm dishId ={props.dish.id} postComment={props.postComment}/>
+                
+            </div>                     
         );
     }
 

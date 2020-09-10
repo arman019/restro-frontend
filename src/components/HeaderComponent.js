@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Jumbotron,Nav,NavbarToggler,Collapse,NavItem,Modal,ModalBody,ModalHeader,Label,Button,Form,FormGroup,Input } from 'reactstrap';
 import {NavLink} from 'react-router-dom';
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 class Header extends  Component{
     constructor(props){
@@ -44,9 +44,12 @@ class Header extends  Component{
             <NavbarBrand className="mr-auto" href="/">
                 <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante con Fusion"/>
             </NavbarBrand>
+           
             <Collapse  isOpen={this.state.isNavOpen} navbar>
+            <Stagger in>
+            <Fade in>
                <Nav navbar>
-                    
+                   
                             <NavItem>
                                 <NavLink className="nav-link"  to='/home'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                             </NavItem>
@@ -59,9 +62,11 @@ class Header extends  Component{
                             <NavItem>
                                 <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
                             </NavItem>
+                             
                             
                 </Nav> 
-
+                </Fade>
+                </Stagger>  
                 <Nav className="ml-auto" navbar>
                     <NavItem>
                         <Button outline onClick={this.toggleModal}>
@@ -69,9 +74,9 @@ class Header extends  Component{
                         </Button>
                     </NavItem>
                 </Nav>
-
+               
             </Collapse>
-
+        
         </div>
 
     </Navbar>
