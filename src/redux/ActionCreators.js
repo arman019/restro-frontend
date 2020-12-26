@@ -1,7 +1,7 @@
 import * as ActionTypes from './ActionTypes';
 
 import {baseUrl} from '../shared/baseUrl';
-import { actionTypes } from 'react-redux-form';
+
 
 
 //this add comment is a single add comment using submit comment buttn but addComments are when we are fetching the whole list of comment from server
@@ -205,6 +205,48 @@ export const leadersFailed=(errmess)=>({
     payload:errmess
 });
 
+export const postFeedback=(firstname,lastname,telnum,email,agree,contactType,message)=>(dispatch)=>{
+    const newFeedback={
+        firstname: firstname,
+        lastname: lastname,
+        telnum: telnum,
+        email: email,
+        agree: agree,
+        contactType: contactType,
+        message: message
+    }
+    newFeedback.date=new Date().toISOString();
+    return fetch(baseUrl +'feedback', {
+        method: 'POST',
+        body: JSON.stringify(newFeedback),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+
+                throw error;
+            }
+        },
+        error => {
+            var errorMessage = new Error(error.errorMessage);
+            throw errorMessage;
+        }
+    )
+    .then(response => response.json())
+    .then(response => alert("Thank you for your feedback "+JSON.stringify(response)))
+    .catch(error => {
+        console.log('Post feedback: ' + error.message);
+        alert('Feedback could not be posted:\n' + error.message)
+    })
+};
+
 ///feedback and its skeleton is in form.js//////
 // export const addFeedback = ( feedback)=>({
 //     type: ActionTypes.ADD_FEEDBACK,
@@ -289,44 +331,3 @@ export const postFeedback = (feedback) => (dispatch) => {
 };
 */
 
-export const postFeedback=(firstname,lastname,telnum,email,agree,contactType,message)=>(dispatch)=>{
-       const newFeedback={
-            firstname: firstname,
-            lastname: lastname,
-            telnum: telnum,
-            email: email,
-            agree: agree,
-            contactType: contactType,
-            message: message
-        }
-        newFeedback.date=new Date().toISOString();
-        return fetch(baseUrl +'feedback', {
-            method: 'POST',
-            body: JSON.stringify(newFeedback),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'same-origin'
-        })
-            .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                    error.response = response;
-
-                    throw error;
-                }
-            },
-            error => {
-                var errorMessage = new Error(error.errorMessage);
-                throw errorMessage;
-            }
-        )
-        .then(response => response.json())
-        .then(response => alert("Thank you for your feedback "+JSON.stringify(response)))
-        .catch(error => {
-            console.log('Post feedback: ' + error.message);
-            alert('Feedback could not be posted:\n' + error.message)
-        })
-};

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand, Jumbotron,Nav,NavbarToggler,Collapse,NavItem,Modal,ModalBody,ModalHeader,Label,Button,Form,FormGroup,Input } from 'reactstrap';
 import {NavLink} from 'react-router-dom';
-import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+import {  Fade } from 'react-animation-components';
 
 class Header extends  Component{
     constructor(props){
